@@ -24,31 +24,33 @@ void Tablero::print()
 {
 	int f = 22;
 	int c = 19;
-
+	// filas = y = i, columnas = x = j
+	
 	for (int i = 0; i < f; i++)
 	{ 
 		for (int j = 0; j < c; j++)
 		{
-			if (map[i][j] == 1)
+			if (map[i][j] == 1) //Paredes
 			{
-				mvprintw(j,2*i , "["); //Paredes
-				mvprintw(j,2*i+1 , "]"); //Paredes
+				mvprintw(i,2*j , "[");
+				mvprintw(i,2*j+1 , "]"); 
 			} 
-			else if (map[i][j] == 0)
+			else if (map[i][j] == 0) //Bolitas
 			{
-				mvprintw(j,2*i , " "); //Bolitas
-				mvprintw(j,2*i+1 , " "); //Bolitas
+				mvprintw(i,2*j , " "); 
+				mvprintw(i,2*j+1 , " "); 
 			}
-			else if (map[i][j] == 2)
+			else if (map[i][j] == 2) //Bolotas
 			{
-				mvprintw(j,2*i , " "); 
-				mvprintw(j,2*i+1 , " "); 
-			}// mvprintw(j,i , " "); //Bolotas
-			else if (map[i][j] == 9) 
+				mvprintw(i,2*j , " "); 
+				mvprintw(i,2*j+1 , " "); 
+			}
+			else if (map[i][j] == 9) //Espacio en blanco
 			{
-				mvprintw(j,2*i , " "); 
-				mvprintw(j,2*i+1 , " ");
-			}//mvprintw(j,i , " "); //Espacio vacio
+				mvprintw(i,2*j , " "); 
+				mvprintw(i,2*j+1 , " ");
+			}
+			//mvprintw(j,i , " "); 
 		}
 
 	}

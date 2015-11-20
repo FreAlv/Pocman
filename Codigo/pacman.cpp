@@ -6,7 +6,7 @@ Pacman::Pacman(int x, int y, const char* img): Personaje(x , y, img){}
 
 bool Pacman::rev_pared(int** map, int movX, int movY)
 {
-	if (map[x+movX][y+movY]==1)
+	if (map[y+movY][x+movX]==1)
 		return false;
 	return true;
 }

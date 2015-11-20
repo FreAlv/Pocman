@@ -2,9 +2,8 @@
 #include "pacman.h"
 #include "tablero.h"
 
-void juego(Pacman pacman, Tablero tablero)
+void juego(Pacman pacman, Tablero tablero) // La función juego es la función principal
 {
-	
 	bool pared;
 
 	while(true)
@@ -14,7 +13,7 @@ void juego(Pacman pacman, Tablero tablero)
 		if(tecla == KEY_LEFT) 
 		{ 	
 			pared = pacman.rev_pared(tablero.getMap(),-1,0);
-			if(pared)
+			if(pared) // este if es provisional
 			{
 				clear();
 				tablero.print();
@@ -24,7 +23,7 @@ void juego(Pacman pacman, Tablero tablero)
 		else if(tecla == KEY_RIGHT) 
 		{	
 			pared = pacman.rev_pared(tablero.getMap(),1,0);
-			if(pared)
+			if(pared) // este if es provisional
 			{
 				clear();
 				tablero.print();
@@ -34,7 +33,7 @@ void juego(Pacman pacman, Tablero tablero)
 		else if(tecla == KEY_UP)
 		{
 			pared = pacman.rev_pared(tablero.getMap(),0, -1);
-			if(pared)
+			if(pared) // este if es provisional
 			{
 				clear();
 				tablero.print();
@@ -44,7 +43,7 @@ void juego(Pacman pacman, Tablero tablero)
 		else if(tecla == KEY_DOWN)
 		{
 			pared = pacman.rev_pared(tablero.getMap(),0, 1);
-			if(pared)
+			if(pared) // este if es provisional
 			{
 				clear();
 				tablero.print();
@@ -53,14 +52,11 @@ void juego(Pacman pacman, Tablero tablero)
 		}
 		else if(tecla == 'q') break;
 	}
-	
-	
-	
 }
 
 int main() 
 {
-	int mapa[]={ //22 x 19 //Pacman: 16,09
+	int mapa[]={ //22 x 19 //Pacman: 16,09 (x,y)
 		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 		1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1,
 		1, 2, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 2, 1,
@@ -86,18 +82,16 @@ int main()
 	
 	// el array del mapa puede ir en un archivo extra,
 	Tablero tablero(mapa);
-	Pacman pacman(10,15, ">O");
+	Pacman pacman(9,15, ">O");
 	
-		
-		
-	initscr();
+	initscr();// Todo esto es del ncurses, luego irá en una clase propia
 	clear();
-	noecho();
+	noecho();						
 	cbreak();
 	keypad(stdscr, TRUE);
 	curs_set(0);
 	
-	juego(pacman, tablero);
+	juego(pacman, tablero); 
 	
 	endwin();
 	return 0;
