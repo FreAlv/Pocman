@@ -1,7 +1,6 @@
-#include <iostream>
+#include <ncurses.h>
 #include "tablero.h"
 
-using namespace std; //borrar cuando ponga ncurses
 
 Tablero::Tablero(int *mapa) 
 {	
@@ -26,18 +25,32 @@ void Tablero::print()
 	int f = 22;
 	int c = 19;
 
-	//los cout son probisionales hasta que metamos ncurses, con ncurses usamos printw
-	cout << endl << endl;
 	for (int i = 0; i < f; i++)
 	{ 
-		cout << "                                                 "; 
 		for (int j = 0; j < c; j++)
 		{
-			if (map[i][j] == 1) cout << "[]";
-			else if (map[i][j] == 0) cout << "  ";
-			else if (map[i][j] == 3) cout << "C3";
-			else if (map[i][j] == 2) cout << "O<";
+			if (map[i][j] == 1)
+			{
+				mvprintw(j,2*i , "["); //Paredes
+				mvprintw(j,2*i+1 , "]"); //Paredes
+			} 
+			else if (map[i][j] == 0)
+			{
+				mvprintw(j,2*i , " "); //Bolitas
+				mvprintw(j,2*i+1 , " "); //Bolitas
+			}
+			else if (map[i][j] == 2)
+			{
+				mvprintw(j,2*i , " "); 
+				mvprintw(j,2*i+1 , " "); 
+			}// mvprintw(j,i , " "); //Bolotas
+			else if (map[i][j] == 9) 
+			{
+				mvprintw(j,2*i , " "); 
+				mvprintw(j,2*i+1 , " ");
+			}//mvprintw(j,i , " "); //Espacio vacio
 		}
-		cout << endl;
+
 	}
+
 }
