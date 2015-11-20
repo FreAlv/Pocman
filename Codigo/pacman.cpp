@@ -1,9 +1,9 @@
 #include "pacman.h"
 
-bool Pacman::rev_pared(int** map, int movX, int movY){
-	if (map[x+movX][y+movY]==1){
+bool Pacman::rev_pared(int** map, int movX, int movY)
+{
+	if (map[x+movX][y+movY]==1)
 		return false;
-	}
 	return true;
 }
 
@@ -15,8 +15,10 @@ Abajo: 0, 1
 */
 
 
-void Pacman::movimiento(bool pared, int movX, int movY){
-	if(pared){
+void Pacman::movimiento(bool pared, int movX, int movY)
+{
+	if(pared)
+	{
 		x+=movX;
 		y+=movY;
 	}

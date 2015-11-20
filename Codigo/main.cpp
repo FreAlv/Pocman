@@ -2,7 +2,8 @@
 #include "pacman.h"
 #include "tablero.h"
 
-int main() {
+int main() 
+{
 	int mapa[]={ //22 x 19
 		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 		1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1,

@@ -1,7 +1,8 @@
 #ifndef PERSONAJE_H
 #define PERSONAJE_H
 
-class Personaje{
+class Personaje
+{
 protected:
 	int x, y;
 	int identificador;
@@ -17,3 +18,4 @@ public:
 };
 
 #endif // PERSONAJE_H
+
