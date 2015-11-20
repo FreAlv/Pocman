@@ -1,4 +1,8 @@
+#include<ncurses.h>
 #include "pacman.h"
+
+Pacman::Pacman(int x, int y, const char* img): Personaje(x , y, img){}
+
 
 bool Pacman::rev_pared(int** map, int movX, int movY)
 {
@@ -18,9 +22,12 @@ Abajo: 0, 1
 void Pacman::movimiento(bool pared, int movX, int movY)
 {
 	if(pared)
-	{
+	{	
 		x+=movX;
 		y+=movY;
+		mvprintw(y,2*x,img);
+		refresh();
+
 	}
 
 }
