@@ -24,14 +24,13 @@ void Pacman::movimiento(bool pared, int movX, int movY, int** map)
 {
 	
 		
-		map[x][y] = 2;
+		map[x][y] = 9;
 		x+=movX;
 		y+=movY;
 		map[x][y] = 4; 
 
 
 		//mvprintw(y,2*x,img);
-		refresh();
 
 	
 

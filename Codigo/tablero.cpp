@@ -1,6 +1,7 @@
 #include <ncurses.h>
 #include "tablero.h"
-
+#include "pacman.h"
+#include "fantasma.h"
 
 Tablero::Tablero(int *mapa) 
 {	
@@ -42,16 +43,10 @@ void Tablero::print()
 				mvprintw(i,2*j+1 , "]"); 
 			} 
 
-			else if (map[i][j] == 2) //Espacio 
+			else if (map[i][j] == 2) //Bolas grandes  
 			{
-				mvprintw(i,2*j , " "); 
-				mvprintw(i,2*j+1 , " "); 
-			}
-
-			else if (map[i][j] == 9) //Espacio en blanco
-			{
-				mvprintw(i,2*j , " "); 
-				mvprintw(i,2*j+1 , " ");
+				mvprintw(i,2*j , "("); 
+				mvprintw(i,2*j+1 , ")");
 			}
 
 			else if (map[i][j] == 3) //Fantasmas
@@ -60,11 +55,18 @@ void Tablero::print()
 				mvprintw(i,2*j+1 , "3");
 			}
 
-			else if (map[i][j] == 4) //Fantasmas
+			else if (map[i][j] == 4) //Pacman
 			{
-				mvprintw(i,2*j , "O"); 
-				mvprintw(i,2*j+1 , "<");
+				mvprintw(i,2*j, "0");
+				mvprintw(i,2*j+1, "<");
 			}
+
+			else if (map[i][j] == 9) //Espacio en blanco
+			{
+				mvprintw(i,2*j , " "); 
+				mvprintw(i,2*j+1 , " ");
+			}
+
 			//mvprintw(j,i , " "); 
 		}
 

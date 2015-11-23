@@ -8,6 +8,7 @@
 #define TIEMPO 10
 
 using namespace std;
+
 vector<thread*> Ts;
 void esperar(int* _tecla)
 {
@@ -23,7 +24,7 @@ void juego(Pacman pacman, Tablero tablero) // La función juego es la función p
 	int tecla;
 	int *ptr_tecla=&tecla;
 	//cout<<tecla<<endl;
-	while(true)
+	while((pacman.getX() != F1.getX()) or (pacman.getY() != F1.getY()))//cuando este en azul hay que cambiar
 	{	
 		int tecla = getch();
 		//Ts.push_back(new thread(esperar, ptr_tecla));	
