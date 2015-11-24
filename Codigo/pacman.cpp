@@ -2,14 +2,19 @@
 #include "pacman.h"
 
 
-Pacman::Pacman(int x, int y, const char* img, int** map): Personaje(x , y, img){ map[x][y] = 4; }
+Pacman::Pacman(int x, int y, const char* img, int** map)
+:Personaje(x , y, img)
+{
+	map[x][y] = 4;
+}
 
 
-bool Pacman::rev_pared(int** map, int movX, int movY)
+bool Pacman::rev_pared(int movX, int movY, int** map)
 {
 	if (map[x+movX][y+movY]==1)
-		return false;
-	return true;
+		puedeMoverse = false;
+	else
+		puedeMoverse = true;
 }
 
 /*
@@ -19,19 +24,14 @@ Arriba: 0, -1
 Abajo: 0, 1
 */
 
-
-void Pacman::movimiento(bool pared, int movX, int movY, int** map)
-{
-	
-		
+void Pacman::movimiento(int movX, int movY, int** map)
+{	
+	rev_pared(movX, movY, map);
+	if (puedeMoverse){
 		map[x][y] = 9;
 		x+=movX;
 		y+=movY;
 		map[x][y] = 4; 
-
-
 		//mvprintw(y,2*x,img);
-
-	
-
+	}
 }

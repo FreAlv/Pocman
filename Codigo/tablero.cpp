@@ -27,6 +27,7 @@ void Tablero::print()
 	int c = 19;
 	// filas = y = i, columnas = x = j
 	
+	clear();
 	for (int i = 0; i < f; i++)
 	{ 
 		for (int j = 0; j < c; j++)
@@ -71,5 +72,6 @@ void Tablero::print()
 		}
 
 	}
-
+	refresh();
+	
 }

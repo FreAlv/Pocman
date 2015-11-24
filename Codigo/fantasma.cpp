@@ -1,12 +1,13 @@
 #include <ncurses.h>
 #include "fantasma.h"
 
-Fantasma::Fantasma(int x, int y, const char* img, int** map): Personaje(x , y, img)
+Fantasma::Fantasma(int x, int y, const char* img, int** map)
+:Personaje(x , y, img)
 {
 	map[x][y] = 3;
 }
 
-bool Fantasma::rev_pared(int** map, int movX, int movY)
+bool Fantasma::rev_pared(int movX, int movY, int** map)
 {
 	if (map[x+movX][y+movY]==1)
 		return false;
@@ -33,7 +34,7 @@ void Fantasma::movimiento(int** map, Pacman pac)
 		Arriba: -1, 0
 		Abajo: 1, 0
 		*/
-	if (rev_pared(map, -1, 0))
+	if (rev_pared(-1, 0, map))
 	{
 		if (x >= pac.getX())
 		{
@@ -45,7 +46,7 @@ void Fantasma::movimiento(int** map, Pacman pac)
 		}
 	}
 		
-	if (rev_pared(map, 0, -1))
+	if (rev_pared(0, -1, map))
 	{
 		if (y >= pac.getY())
 		{
@@ -57,7 +58,7 @@ void Fantasma::movimiento(int** map, Pacman pac)
 		}
 	}
 
-	if (rev_pared(map, 0, 1))
+	if (rev_pared(0, 1, map))
 	{
 		if (y <= pac.getY())
 		{
@@ -69,7 +70,7 @@ void Fantasma::movimiento(int** map, Pacman pac)
 		}
 	}
 
-	if (rev_pared(map, 1, 0))
+	if (rev_pared(1, 0, map))
 	{
 		if (x <= pac.getX())
 		{
@@ -81,3 +82,20 @@ void Fantasma::movimiento(int** map, Pacman pac)
 		}
 	}	
 }
+
+
+//Prueba en poner esto para que los fantasmas no vuelvan a poner bolitas, pon esto en vez de : map[x][y] = 0;
+/*
+if(map[x][y] == 0)// bolitas
+{
+	map[x][y] = 0;
+}
+else if(map[x][y] == 2;) //bolas
+{
+	map[x][y] = 2;
+}
+else if(map[x][y] == 9;) //espacio en blanco
+{
+	map[x][y] = 9;
+}
+*/

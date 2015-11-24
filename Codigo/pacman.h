@@ -5,10 +5,12 @@
 
 class Pacman: public Personaje
 {
+	
+bool puedeMoverse;
 public:
 	Pacman(int x, int y, const char* img, int** map);
-	bool rev_pared(int** map, int movX, int movY);
-	void movimiento(bool pared, int movX, int movY, int** map);
+	bool rev_pared(int movX, int movY, int** map);
+	void movimiento(int movX, int movY, int** map);
 };
 
 #endif // PACMAN_H
