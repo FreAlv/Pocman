@@ -4,6 +4,7 @@
 Fantasma::Fantasma(int x, int y, const char* img, int** map)
 :Personaje(x , y, img)
 {
+	setPosicionActual(map[x][y]);
 	map[x][y] = 3;
 }
 
@@ -16,18 +17,6 @@ bool Fantasma::rev_pared(int movX, int movY, int** map)
 
 void Fantasma::movimiento(int** map, Pacman pac)
 {
-	/*if ((cordenada_C_POC <= cordenada_C_FAN) 
-	{	
-		if (m[cordenada_F_FAN][cordenada_C_FAN-1] != 1))
-		{
-			m[cordenada_F_FAN][cordenada_C_FAN] = 0;
-			cordenada_C_FAN -= 1;
-			m[cordenada_F_FAN][cordenada_C_FAN] = 3;
-			cout << "CACA 1" << endl;
-			return;
-	}*/
-	// filas = y = i, columnas = x = j
-
 		/*
 		Izquierda: 0, -1
 		Derecha: 0, 1
@@ -38,9 +27,10 @@ void Fantasma::movimiento(int** map, Pacman pac)
 	{
 		if (x >= pac.getX())
 		{
-			map[x][y] = 0;
+			map[x][y] = PosicionActual;
 			x-=1;
-			y+=0;	
+			y+=0;
+			PosicionActual = map[x][y];
 			map[x][y] = 3;
 			return;
 		}
@@ -50,9 +40,10 @@ void Fantasma::movimiento(int** map, Pacman pac)
 	{
 		if (y >= pac.getY())
 		{
-			map[x][y] = 0;
+			map[x][y] = PosicionActual;
 			x+=0;
-			y-=1;	
+			y-=1;
+			PosicionActual = map[x][y];
 			map[x][y] = 3;
 			return;
 		}
@@ -62,9 +53,10 @@ void Fantasma::movimiento(int** map, Pacman pac)
 	{
 		if (y <= pac.getY())
 		{
-			map[x][y] = 0;
+			map[x][y] = PosicionActual;
 			x+=0;
 			y+=1;	
+			PosicionActual = map[x][y];
 			map[x][y] = 3;
 			return;
 		}
@@ -74,28 +66,12 @@ void Fantasma::movimiento(int** map, Pacman pac)
 	{
 		if (x <= pac.getX())
 		{
-			map[x][y] = 0;
+			map[x][y] = PosicionActual;
 			x+=1;
 			y+=0;	
+			PosicionActual = map[x][y];
 			map[x][y] = 3;
 			return;
 		}
 	}	
 }
-
-
-//Prueba en poner esto para que los fantasmas no vuelvan a poner bolitas, pon esto en vez de : map[x][y] = 0;
-/*
-if(map[x][y] == 0)// bolitas
-{
-	map[x][y] = 0;
-}
-else if(map[x][y] == 2;) //bolas
-{
-	map[x][y] = 2;
-}
-else if(map[x][y] == 9;) //espacio en blanco
-{
-	map[x][y] = 9;
-}
-*/
