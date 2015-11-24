@@ -1,4 +1,8 @@
+
 #include <ncurses.h>
+#include <stdlib.h>
+#include <time.h>
+
 #include "fantasma.h"
 
 Fantasma::Fantasma(int x, int y, const char* img, int** map)
@@ -17,61 +21,176 @@ bool Fantasma::rev_pared(int movX, int movY, int** map)
 
 void Fantasma::movimiento(int** map, Pacman pac)
 {
-		/*
+		/* rand()%5!!!!!
 		Izquierda: 0, -1
 		Derecha: 0, 1
 		Arriba: -1, 0
 		Abajo: 1, 0
 		*/
-	if (rev_pared(-1, 0, map))
+	int num = rand()%3;
+
+	if (num == 0)
 	{
-		if (x >= pac.getX())
+		if (rev_pared(-1, 0, map))  //Arriba: -1, 0
 		{
-			map[x][y] = PosicionActual;
-			x-=1;
-			y+=0;
-			PosicionActual = map[x][y];
-			map[x][y] = 3;
-			return;
+			if (x >= pac.getX())
+			{
+				map[x][y] = PosicionActual;
+				x-=1;
+				y+=0;
+				PosicionActual = map[x][y];
+				map[x][y] = 3;
+				return;
+			}
 		}
-	}
 		
-	if (rev_pared(0, -1, map))
-	{
-		if (y >= pac.getY())
+		if (rev_pared(0, -1, map)) //Izquierda: 0, -1
 		{
-			map[x][y] = PosicionActual;
-			x+=0;
-			y-=1;
-			PosicionActual = map[x][y];
-			map[x][y] = 3;
-			return;
+			if (y >= pac.getY())
+			{
+				map[x][y] = PosicionActual;
+				x+=0;
+				y-=1;
+				PosicionActual = map[x][y];
+				map[x][y] = 3;
+				return;
+			}
 		}
+
+		if (rev_pared(0, 1, map))  //Derecha: 0, 1
+		{
+			if (y <= pac.getY())
+			{
+				map[x][y] = PosicionActual;
+				x+=0;
+				y+=1;	
+				PosicionActual = map[x][y];
+				map[x][y] = 3;
+				return;
+			}
+		}
+
+		if (rev_pared(1, 0, map))  //Abajo: 1, 0
+		{
+			if (x <= pac.getX())
+			{
+				map[x][y] = PosicionActual;
+				x+=1;
+				y+=0;	
+				PosicionActual = map[x][y];
+				map[x][y] = 3;
+				return;
+			}
+		}	
 	}
 
-	if (rev_pared(0, 1, map))
+	if (num == 1)
 	{
-		if (y <= pac.getY())
+		if (rev_pared(1, 0, map))  //Abajo: 1, 0
 		{
-			map[x][y] = PosicionActual;
-			x+=0;
-			y+=1;	
-			PosicionActual = map[x][y];
-			map[x][y] = 3;
-			return;
+			if (x <= pac.getX())
+			{
+				map[x][y] = PosicionActual;
+				x+=1;
+				y+=0;	
+				PosicionActual = map[x][y];
+				map[x][y] = 3;
+				return;
+			}
 		}
-	}
 
-	if (rev_pared(1, 0, map))
-	{
-		if (x <= pac.getX())
+		if (rev_pared(0, 1, map))  //Derecha: 0, 1
 		{
-			map[x][y] = PosicionActual;
-			x+=1;
-			y+=0;	
-			PosicionActual = map[x][y];
-			map[x][y] = 3;
-			return;
+			if (y <= pac.getY())
+			{
+				map[x][y] = PosicionActual;
+				x+=0;
+				y+=1;	
+				PosicionActual = map[x][y];
+				map[x][y] = 3;
+				return;
+			}
+		}		
+
+		if (rev_pared(-1, 0, map))  //Arriba: -1, 0
+		{
+			if (x >= pac.getX())
+			{
+				map[x][y] = PosicionActual;
+				x-=1;
+				y+=0;
+				PosicionActual = map[x][y];
+				map[x][y] = 3;
+				return;
+			}
 		}
+		
+		if (rev_pared(0, -1, map)) //Izquierda: 0, -1
+		{
+			if (y >= pac.getY())
+			{
+				map[x][y] = PosicionActual;
+				x+=0;
+				y-=1;
+				PosicionActual = map[x][y];
+				map[x][y] = 3;
+				return;
+			}
+		}	
 	}	
+
+	if (num == 2)
+	{
+		if (rev_pared(0, -1, map)) //Izquierda: 0, -1
+		{
+			if (y >= pac.getY())
+			{
+				map[x][y] = PosicionActual;
+				x+=0;
+				y-=1;
+				PosicionActual = map[x][y];
+				map[x][y] = 3;
+				return;
+			}
+		}
+
+		if (rev_pared(0, 1, map))  //Derecha: 0, 1
+		{
+			if (y <= pac.getY())
+			{
+				map[x][y] = PosicionActual;
+				x+=0;
+				y+=1;	
+				PosicionActual = map[x][y];
+				map[x][y] = 3;
+				return;
+			}
+		}
+		
+		if (rev_pared(1, 0, map))  //Abajo: 1, 0
+		{
+			if (x <= pac.getX())
+			{
+				map[x][y] = PosicionActual;
+				x+=1;
+				y+=0;	
+				PosicionActual = map[x][y];
+				map[x][y] = 3;
+				return;
+			}
+		}
+
+		if (rev_pared(-1, 0, map))  //Arriba: -1, 0
+		{
+			if (x >= pac.getX())
+			{
+				map[x][y] = PosicionActual;
+				x-=1;
+				y+=0;
+				PosicionActual = map[x][y];
+				map[x][y] = 3;
+				return;
+			}
+		}	
+	}
 }
