@@ -1,12 +1,13 @@
-#include<ncurses.h>
+#include <ncurses.h>
 #include "pacman.h"
 
-Pacman::Pacman(int x, int y, const char* img): Personaje(x , y, img){}
+
+Pacman::Pacman(int x, int y, const char* img, int** map): Personaje(x , y, img){ map[x][y] = 4; }
 
 
 bool Pacman::rev_pared(int** map, int movX, int movY)
 {
-	if (map[y+movY][x+movX]==1)
+	if (map[x+movX][y+movY]==1)
 		return false;
 	return true;
 }
@@ -19,15 +20,19 @@ Abajo: 0, 1
 */
 
 
-void Pacman::movimiento(bool pared, int movX, int movY)
+void Pacman::movimiento(bool pared, int movX, int movY, int** map)
 {
-	if(pared)
-	{	
+	
+		
+		map[x][y] = 2;
 		x+=movX;
 		y+=movY;
-		mvprintw(y,2*x,img);
+		map[x][y] = 4; 
+
+
+		//mvprintw(y,2*x,img);
 		refresh();
 
-	}
+	
 
 }

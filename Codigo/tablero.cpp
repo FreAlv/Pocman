@@ -30,25 +30,40 @@ void Tablero::print()
 	{ 
 		for (int j = 0; j < c; j++)
 		{
-			if (map[i][j] == 1) //Paredes
+			if (map[i][j] == 0) //Bolitas
+			{
+				mvprintw(i,2*j , " "); 
+				mvprintw(i,2*j+1 , "."); 
+			}
+			
+			else if (map[i][j] == 1) //Paredes
 			{
 				mvprintw(i,2*j , "[");
 				mvprintw(i,2*j+1 , "]"); 
 			} 
-			else if (map[i][j] == 0) //Bolitas
+
+			else if (map[i][j] == 2) //Espacio 
 			{
 				mvprintw(i,2*j , " "); 
 				mvprintw(i,2*j+1 , " "); 
 			}
-			else if (map[i][j] == 2) //Bolotas
-			{
-				mvprintw(i,2*j , " "); 
-				mvprintw(i,2*j+1 , " "); 
-			}
+
 			else if (map[i][j] == 9) //Espacio en blanco
 			{
 				mvprintw(i,2*j , " "); 
 				mvprintw(i,2*j+1 , " ");
+			}
+
+			else if (map[i][j] == 3) //Fantasmas
+			{
+				mvprintw(i,2*j , "="); 
+				mvprintw(i,2*j+1 , "3");
+			}
+
+			else if (map[i][j] == 4) //Fantasmas
+			{
+				mvprintw(i,2*j , "O"); 
+				mvprintw(i,2*j+1 , "<");
 			}
 			//mvprintw(j,i , " "); 
 		}
