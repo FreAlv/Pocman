@@ -5,9 +5,16 @@
 
 #include "fantasma.h"
 
-Fantasma::Fantasma(int x, int y, const char* img, int** map)
+Fantasma::Fantasma()
+:Personaje(1, 1, "=3")
+{
+
+}
+
+Fantasma::Fantasma(int x, int y, const char* img, int** map, int num)
 :Personaje(x , y, img)
 {
+	salida = num;
 	setPosicionActual(map[x][y]);
 	map[x][y] = 3;
 }
@@ -31,7 +38,7 @@ void Fantasma::movimiento(int** map, Pacman pac)
 
 	if (num == 0)
 	{
-		if (rev_pared(-1, 0, map))  //Arriba: -1, 0
+		if ((rev_pared(-1, 0, map)) and (map[x-1][y] != 3))  //Arriba: -1, 0
 		{
 			if (x >= pac.getX())
 			{
@@ -44,7 +51,7 @@ void Fantasma::movimiento(int** map, Pacman pac)
 			}
 		}
 		
-		if (rev_pared(0, -1, map)) //Izquierda: 0, -1
+		if ((rev_pared(0, -1, map)) and (map[x][y-1] != 3)) //Izquierda: 0, -1
 		{
 			if (y >= pac.getY())
 			{
@@ -57,7 +64,7 @@ void Fantasma::movimiento(int** map, Pacman pac)
 			}
 		}
 
-		if (rev_pared(0, 1, map))  //Derecha: 0, 1
+		if ((rev_pared(0, 1, map)) and (map[x][y+1] != 3))  //Derecha: 0, 1
 		{
 			if (y <= pac.getY())
 			{
@@ -70,7 +77,7 @@ void Fantasma::movimiento(int** map, Pacman pac)
 			}
 		}
 
-		if (rev_pared(1, 0, map))  //Abajo: 1, 0
+		if ((rev_pared(1, 0, map)) and (map[x+1][y] != 3))   //Abajo: 1, 0
 		{
 			if (x <= pac.getX())
 			{
@@ -86,7 +93,7 @@ void Fantasma::movimiento(int** map, Pacman pac)
 
 	if (num == 1)
 	{
-		if (rev_pared(1, 0, map))  //Abajo: 1, 0
+		if ((rev_pared(1, 0, map)) and (map[x+1][y] != 3))   //Abajo: 1, 0
 		{
 			if (x <= pac.getX())
 			{
@@ -99,7 +106,7 @@ void Fantasma::movimiento(int** map, Pacman pac)
 			}
 		}
 
-		if (rev_pared(0, 1, map))  //Derecha: 0, 1
+		if ((rev_pared(0, 1, map)) and (map[x][y+1] != 3))  //Derecha: 0, 1
 		{
 			if (y <= pac.getY())
 			{
@@ -112,7 +119,7 @@ void Fantasma::movimiento(int** map, Pacman pac)
 			}
 		}		
 
-		if (rev_pared(-1, 0, map))  //Arriba: -1, 0
+		if ((rev_pared(-1, 0, map)) and (map[x-1][y] != 3))  //Arriba: -1, 0
 		{
 			if (x >= pac.getX())
 			{
@@ -125,7 +132,7 @@ void Fantasma::movimiento(int** map, Pacman pac)
 			}
 		}
 		
-		if (rev_pared(0, -1, map)) //Izquierda: 0, -1
+		if ((rev_pared(0, -1, map)) and (map[x][y-1] != 3)) //Izquierda: 0, -1
 		{
 			if (y >= pac.getY())
 			{
@@ -141,7 +148,7 @@ void Fantasma::movimiento(int** map, Pacman pac)
 
 	if (num == 2)
 	{
-		if (rev_pared(0, -1, map)) //Izquierda: 0, -1
+		if ((rev_pared(0, -1, map)) and (map[x][y-1] != 3)) //Izquierda: 0, -1
 		{
 			if (y >= pac.getY())
 			{
@@ -154,7 +161,7 @@ void Fantasma::movimiento(int** map, Pacman pac)
 			}
 		}
 
-		if (rev_pared(0, 1, map))  //Derecha: 0, 1
+		if ((rev_pared(0, 1, map)) and (map[x][y+1] != 3))  //Derecha: 0, 1
 		{
 			if (y <= pac.getY())
 			{
@@ -167,7 +174,7 @@ void Fantasma::movimiento(int** map, Pacman pac)
 			}
 		}
 		
-		if (rev_pared(1, 0, map))  //Abajo: 1, 0
+		if ((rev_pared(1, 0, map)) and (map[x+1][y] != 3)) //Abajo: 1, 0
 		{
 			if (x <= pac.getX())
 			{
@@ -180,7 +187,7 @@ void Fantasma::movimiento(int** map, Pacman pac)
 			}
 		}
 
-		if (rev_pared(-1, 0, map))  //Arriba: -1, 0
+		if ((rev_pared(-1, 0, map)) and (map[x-1][y] != 3)) //Arriba: -1, 0
 		{
 			if (x >= pac.getX())
 			{
@@ -194,3 +201,17 @@ void Fantasma::movimiento(int** map, Pacman pac)
 		}	
 	}
 }
+
+
+//Prueba en poner esto para que los fantasmas no vuelvan a poner bolitas, pon esto en vez de : map[x][y] = 0;
+/*
+if(map[x][y] == 0)// bolitas
+	map[x][y] = 0;
+
+else if(map[x][y] == 2;) //bolas
+	map[x][y] = 2;
+
+else if(map[x][y] == 9;) //espacio en blanco
+	map[x][y] = 9;
+
+*/
