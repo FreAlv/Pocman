@@ -5,7 +5,6 @@
 
 class Pacman: public Personaje
 {
-	
 bool puedeMoverse;
 public:
 	Pacman(int x, int y, const char* img, int** map);
