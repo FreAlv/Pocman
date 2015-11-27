@@ -14,64 +14,90 @@
 
 using namespace std;
 
-void esperar(Pacman *pacman, Tablero *tablero, ControlJuego *control)
+void esperar(Pacman *pacman, Fantasma* F, Tablero *tablero, ControlJuego *control)
 {
 	
 	int tecla = getch();
 	while(true)
-	{
+	{/*
+		if (h)//para las bolas grandes Tiene problemas al comer fantasmas 
+		{
+			for (int i = 0; i < 4; ++i)
+			{
+				F[i].regresarCaja(tablero->getMap(), *pacman);
+			}
+		}*/
 	
 		if(tecla == KEY_UP)
 		{ 	
-			pacman->movimiento(-1, 0, tablero->getMap());
+			pacman->movimiento(-1, 0, tablero->getMap(), control);
 		}
 		
 		if(tecla == KEY_DOWN) 
 		{	
-			pacman->movimiento(1,0, tablero->getMap());
+			pacman->movimiento(1,0, tablero->getMap(), control);
 		}
 		
 		if(tecla == KEY_LEFT)
 		{
-			pacman->movimiento(0, -1, tablero->getMap());			
+			pacman->movimiento(0, -1, tablero->getMap(), control);			
 		}
 		
 		if(tecla == KEY_RIGHT)
 		{
-			pacman->movimiento(0, 1, tablero->getMap());
+			pacman->movimiento(0, 1, tablero->getMap(), control);
 		}
-		if(tecla == 'q') break;
+		if(tecla == 'q') 
+			break;
 		
 		tablero->print(control->getPantJuego());
 		tecla = getch();
 	}
 	
 }
-
-void juego(Pacman * pacman, Fantasma* F, Tablero * tablero, ControlJuego *control) // La función juego es la función principal
-{
-	control->printDatos(); //MOVER ESTO A OTRO LADO, MOVER A DONDE SE LLAME A LA FUNCIÓN AUMENTAR PUNTOS
+void juego(Pacman * pacman, Fantasma* F, Tablero *tablero, ControlJuego *control) // La función juego es la función principal
+{	
 	int tecla;
-	thread thread1 (esperar,pacman,tablero, control);//esto crea la thread
-	while(/*(pacman.getX() != F1.getX()) or (pacman.getY() != F1.getY())*/true)//cuando este en azul hay que cambiar
+
+	thread thread1 (esperar, pacman, F, tablero, control);//esto crea la thread
+
+	while(true)
 	{	
 		
 		if (tablero->ganar())
 		{
+			thread1.detach();//elimina los threads
+			
 			control->ganar();
 			break;
 		}
-		//para la salida de los fantasmas
 
-		for (int i = 0; i < 3; i++)
-		{
-			F[i].setContador();
-		 	if (F[i].getContador() > F[i].getSalida())
-				F[i].movimiento(tablero->getMap(), *pacman);
-		}
-		tablero->print(control->getPantJuego());
+		//Movimiento de fantasmas:
 		
-		usleep(599999); //controla la velicidad de los fantasmas
+		if (control->getmodoAzul() == false)
+		{
+			for (int i = 0; i < 4; i++)
+				F[i].movimiento(tablero->getMap(), *pacman);
+			
+			tablero->print(control->getPantJuego());	
+			usleep(599999); //controla la velicidad de los fantasmas
+		}
+		else
+		{
+			for (int j = 0; j < 10; j++)
+			{
+				for (int i = 0; i < 4; i++)
+				{
+					F[i].regresarCaja(tablero->getMap(), *pacman);
+					F[i].mAzul(tablero->getMap(), *pacman);
+				}
+				tablero->print(control->getPantJuego());
+				usleep(659999);
+			}
+			control->setmodoAzul(false);
+		}
+
+
 	}
 }
 
@@ -96,7 +122,7 @@ int main()
 		1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1,
 		1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1,
 		1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1,
-		1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1,
+		1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1,
 		1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, //10
 		1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1,
 		1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1,
@@ -120,10 +146,11 @@ int main()
 	Pacman pacman(16,9, "0<", tablero.getMap());
 	
 	Fantasma* fantasmas;
-	fantasmas = new Fantasma[3];
-	*(fantasmas + 0) = Fantasma(10, 8, "=3", tablero.getMap(), 5);
-	*(fantasmas + 1) = Fantasma(10, 9, "=3", tablero.getMap(), 20);
-	*(fantasmas + 2) = Fantasma(10, 10, "=3", tablero.getMap(), 40);
+	fantasmas = new Fantasma[4];
+	*(fantasmas + 0) = Fantasma(8, 9, "=3", tablero.getMap(), 0);
+	*(fantasmas + 1) = Fantasma(10, 8, "=3", tablero.getMap(), 5);
+	*(fantasmas + 2) = Fantasma(10, 9, "=3", tablero.getMap(), 20);
+	*(fantasmas + 3) = Fantasma(10, 10, "=3", tablero.getMap(), 40);
 		
 	while (true)
 	{
@@ -139,12 +166,8 @@ int main()
 		if (menu.getOpcion() == 2)
 			mvwprintw(control.getPantMenu(),0,0, "chau");
 		if (menu.getOpcion() == 3)
-			break;
-		
-	}
-	
-	
-	
+			break;	
+	}	
 	endwin();
 	return 0;
 

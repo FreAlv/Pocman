@@ -30,11 +30,10 @@ void Menu::printOpciones(WINDOW *w)
 
 void Menu::usarMenu(WINDOW *w)
 {
-	//keypad(w, TRUE);
-	printOpciones(w);
 	int tecla;
 	while (true)
 	{
+		printOpciones(w);
 		tecla = getch();
 		if(tecla == KEY_UP)
 		{ 	
@@ -57,7 +56,7 @@ void Menu::usarMenu(WINDOW *w)
 			break;
 		}
 		//? qué tenemos que hacer para que funcione con la funcion juego
-		printOpciones(w);
+		
 	}
 }
 

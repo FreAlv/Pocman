@@ -8,6 +8,8 @@ ControlJuego::ControlJuego(int numNiveles)
 	nivel = 1;
 	this->numNiveles = numNiveles;
 	
+	modoAzul = false;
+	
 	pantallaJuego = newwin(22,38,1,3);
 	pantallaMenu = newwin(0,0,0,0);
 	pantallaDatos = newwin(22,19,1,45);
@@ -57,6 +59,7 @@ void ControlJuego::printDatos()
 	mvwprintw(pantallaDatos,11,10,"%i",vidas);
 	wrefresh(pantallaDatos);
 }
+
 
 
 

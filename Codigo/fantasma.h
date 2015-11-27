@@ -4,22 +4,26 @@
 
 #include "personaje.h"
 #include "pacman.h"
+#include "controljuego.h"
 
 class Fantasma: public Personaje
 {
 	int PosicionActual;
 	int salida;
-	int contador = 0;
+	int contador;
+	void dirMovimiento(int movX, int movY, int** map);
 public:
 	Fantasma();
-	Fantasma(int x, int y, const char* img, int** map, int num);
-	bool rev_pared(int movX, int movY, int** map);
+	Fantasma(int x, int y, const char* img, int** map, int salida);
+	bool rev_pared(int movX, int movY, int** map); //PRIVATE?
+	
 	void movimiento( int** map, Pacman pac);
 	int getPosicionActual() { return PosicionActual; }
 	void setPosicionActual(int Valor) { PosicionActual = Valor; }
 	int getSalida() { return salida; }
 	int getContador() { return contador; }
-	void setContador() { contador+=1; }
+	void mAzul(int** map, Pacman pac);
+	void regresarCaja(int** map, Pacman pac);
 };
 
 #endif // FANTASMA_H
