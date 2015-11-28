@@ -243,6 +243,7 @@ void Fantasma::regresarCaja(int** map, Pacman pac)
 			x = 8;
 			y = 9;
 		}
+		PosicionActual = 9;
 		map[x][y] =3;
 		contador = 0;
 		salida = 15;				

@@ -34,6 +34,7 @@ void Menu::usarMenu(WINDOW *w)
 	while (true)
 	{
 		printOpciones(w);
+		opcion = -1;
 		tecla = getch();
 		if(tecla == KEY_UP)
 		{ 	
@@ -59,4 +60,5 @@ void Menu::usarMenu(WINDOW *w)
 		
 	}
 }
+
 

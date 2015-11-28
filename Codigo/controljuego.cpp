@@ -1,5 +1,6 @@
 #include "controljuego.h"
 #include <ncurses.h>
+#include <unistd.h>
 
 ControlJuego::ControlJuego(int numNiveles)
 {
@@ -22,12 +23,25 @@ void ControlJuego::ganar()
 	{
 		++nivel;
 		mvwprintw(pantallaJuego,11,15, "NIVEL %i", nivel);
+		wrefresh(pantallaJuego);
+		usleep(3000000);
+		//?INICIAR UN NUEVO MAPA,PACMAN Y FANTAMAS
 	}
 	else
 	{
-		mvwprintw(pantallaJuego,11,15, "GANASTE");
+		mvwprintw(pantallaJuego,8,15, "GANASTE");
+		mvwprintw(pantallaJuego,12,9, "Presiona una tecla ");
+		mvwprintw(pantallaJuego,13,8, "para regresar al menu");
+		wrefresh(pantallaJuego);
+		
+		int esperar = getch();
+		
+		wclear(pantallaJuego); //Borra contenido de la pantalla juego y datos
+		wclear(pantallaDatos);
+		wrefresh(pantallaJuego);
+		wrefresh(pantallaDatos);		
 	}
-	wrefresh(pantallaJuego);
+	
 	
 }
 
