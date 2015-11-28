@@ -7,9 +7,7 @@
 
 Fantasma::Fantasma()
 :Personaje(1, 1, "=3")
-{
-
-}
+{ }
 
 Fantasma::Fantasma(int x, int y, const char* img, int** map, int salida)
 :Personaje(x , y, img)
@@ -54,7 +52,8 @@ void Fantasma::movimiento(int** map, Pacman pac)
 	{
 		map[x][y] = 9;
 		//map[x-1][y] = 1;
-		x-=2;
+		if (map[x-2][y] != 1)
+			x-=2;	
 		++contador;
 	}
 
@@ -97,7 +96,7 @@ void Fantasma::movimiento(int** map, Pacman pac)
 		}	
 	}
 
-	if (num == 1)
+	else if (num == 1)
 	{
 		if ((rev_pared(1, 0, map)) and (map[x+1][y] != 3))   //Abajo: 1, 0
 		{
@@ -136,7 +135,7 @@ void Fantasma::movimiento(int** map, Pacman pac)
 		}	
 	}	
 
-	if (num == 2)
+	else if (num == 2)
 	{
 		if ((rev_pared(0, -1, map)) and (map[x][y-1] != 3)) //Izquierda: 0, -1
 		{
@@ -218,35 +217,52 @@ void Fantasma::mAzul(int** map, Pacman pac)
 void Fantasma::regresarCaja(int** map, Pacman pac)
 {
 	if ((x == pac.getX()) and (y == pac.getY()))
-	{
+	{			
+		posInicial(map);				
+	}
+}
+
+bool Fantasma::fComeP(int** map, Pacman pac)
+{
+	if ((x == pac.getX()) and (y == pac.getY()))
+		return true;
+	return false;
+}
+
+void Fantasma::posInicial(int** map)
+{
+		contador = 0;
+
 		map[x][y] = 9;
-		if (map[10][8] == 9)
+
+		if (map[10][8] == 9) 
 		{
 			x = 10;
 			y = 8;
+			salida = 10;
 		}
 
 		else if (map[10][9] == 9)
 		{
 			x = 10;
 			y = 9;
+			salida = 20;
 		}
 
 		else if (map[10][10] == 9)
 		{
 			x = 10;
 			y = 10;
+			salida = 30;
 		}
 
 		else if (map[8][9] == 9)
 		{
 			x = 8;
 			y = 9;
+			salida = 1;
 		}
-		PosicionActual = 9;
-		map[x][y] =3;
-		contador = 0;
-		salida = 15;				
-	}
-}
 
+		PosicionActual = 9;
+		map[x][y] = 3;
+}	

@@ -48,6 +48,7 @@ void ControlJuego::ganar()
 void ControlJuego::perder()
 {
 	--vidas;
+	puntuacion-=500;
 	wclear(pantallaJuego);
 	mvwprintw(pantallaJuego,10,15, "PERDISTE");
 	mvwprintw(pantallaJuego,11,5, "Te quedan %i vidas", vidas);
@@ -61,6 +62,7 @@ void ControlJuego::perder()
 		mvwprintw(pantallaJuego,13,8, "para regresar al menu");
 	}
 	wrefresh(pantallaJuego);
+	int esperar = getch();
 		
 }
 

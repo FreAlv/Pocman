@@ -19,6 +19,11 @@ void esperar(int* tecla, Pacman *pacman, Fantasma* F, Tablero *tablero, ControlJ
 
 	while(!tablero->ganar())
 	{	
+		if (control->getVidas() == 0)
+		{
+			break;
+		}
+
 		if(*tecla == KEY_UP)
 		{ 	
 			pacman->movimiento(-1, 0, tablero->getMap(), control);
@@ -54,46 +59,69 @@ void juego(Pacman pacman, Fantasma* F, Tablero tablero, ControlJuego* control) /
 
 	while(true)
 	{	
-		if (tecla == 'q') //es para salir
+		if (control->getVidas() > 0)
 		{
-			thread1.detach();
-			wclear(control->getPantJuego());
-			wclear(control->getPantDatos());
-			wrefresh(control->getPantJuego());
-			wrefresh(control->getPantDatos());
-			break;
-		}
+			tablero.print(control->getPantJuego());
+			if (tecla == 'q') //es para salir
+			{
+				thread1.detach();
+				wclear(control->getPantJuego());
+				wclear(control->getPantDatos());
+				wrefresh(control->getPantJuego());
+				wrefresh(control->getPantDatos());
+				break;
+			}
 
-		if (tablero.ganar())
-		{
-			thread1.detach();//elimina los threads
-			control->ganar();
-			break;
-		}
+			if (tablero.ganar())
+			{
+				thread1.detach();//elimina los threads
+				control->ganar();
+				break;
+			}
 
-		//Movimiento de fantasmas:
-		
-		if (control->getmodoAzul() == false)
-		{
-			for (int i = 0; i < 4; i++)
-				F[i].movimiento(tablero.getMap(), pacman);
-			
-			tablero.print(control->getPantJuego());	
-			usleep(599999); //controla la velicidad de los fantasmas
-		}
-		else
-		{
-			for (int j = 0; j < 10; j++)
+			//Movimiento de fantasmas:		
+			if (control->getmodoAzul() == false)
 			{
 				for (int i = 0; i < 4; i++)
 				{
-					F[i].regresarCaja(tablero.getMap(), pacman);
-					F[i].mAzul(tablero.getMap(), pacman);
-				}
-				tablero.print(control->getPantJuego());
-				usleep(659999);
+					F[i].movimiento(tablero.getMap(), pacman);
+
+					if (F[i].fComeP(tablero.getMap(), pacman)) //cuando el fantasma come al pacman
+					{
+						tablero.print(control->getPantJuego());	//imprime el mapa
+						control->perder();			
+						for (int j = 0; j < 4; j++)
+						{
+							F[j].posInicial(tablero.getMap());
+						}
+						pacman.posInicial(tablero.getMap());
+						break;
+					}
+					tablero.print(control->getPantJuego());
+				}	
+				usleep(599999); //controla la velicidad de los fantasmas
 			}
-			control->setmodoAzul(false);
+		
+			else
+			{
+				for (int j = 0; j < 10; j++)
+				{
+					for (int i = 0; i < 4; i++)
+					{
+						F[i].regresarCaja(tablero.getMap(), pacman);
+						F[i].mAzul(tablero.getMap(), pacman);
+					}
+					tablero.print(control->getPantJuego());
+					usleep(659999);
+				}
+				control->setmodoAzul(false);
+			}
+		}
+
+		else
+		{
+			thread1.detach();//elimina los threads
+			break;
 		}
 	}
 }
@@ -111,10 +139,10 @@ int main()
 	int mapa[]={ //22 x 19 //Pacman: 16,09 (x,y)
       //0  1  2  3  4  5  6  7  8  9 10         		
 		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, //0
-		1, 9, 9, 9, 9, 9, 9, 9, 9, 1, 9, 9, 9, 9, 9, 9, 9, 9, 1, //1
-		1, 9, 1, 1, 9, 1, 1, 1, 9, 1, 9, 1, 1, 1, 9, 1, 1, 9, 1,
-		1, 9, 1, 1, 9, 1, 1, 1, 9, 1, 9, 1, 1, 1, 9, 1, 1, 9, 1,
-		1, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 1,
+		1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, //1
+		1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1,
+		1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1,
+		1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
 		1, 9, 1, 1, 9, 1, 9, 1, 1, 1, 1, 1, 9, 1, 9, 1, 1, 9, 1, //5
 		1, 9, 9, 9, 9, 1, 9, 9, 9, 1, 9, 9, 9, 1, 9, 9, 9, 9, 1,
 		1, 1, 1, 1, 9, 1, 1, 1, 9, 1, 9, 1, 1, 1, 9, 1, 1, 1, 1,
@@ -146,7 +174,7 @@ int main()
 		{
 			
 			Tablero tablero(mapa);
-			Pacman pacman(16,9, "0<", tablero.getMap());
+			Pacman pacman(16, 9, "0<", tablero.getMap());
 			Fantasma* fantasmas;
 			fantasmas = new Fantasma[4];
 			*(fantasmas + 0) = Fantasma(8, 9, "=3", tablero.getMap(), 0);

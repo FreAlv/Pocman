@@ -52,3 +52,11 @@ void Pacman::movimiento(int movX, int movY, int** map, ControlJuego *control)
 	}
 
 }
+
+void Pacman::posInicial(int** map)
+{
+	map[x][y] = 9;
+	x = 16;
+	y = 9;
+	map[x][y] = 4;
+}

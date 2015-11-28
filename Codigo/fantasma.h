@@ -16,7 +16,6 @@ public:
 	Fantasma();
 	Fantasma(int x, int y, const char* img, int** map, int salida);
 	bool rev_pared(int movX, int movY, int** map); //PRIVATE?
-	
 	void movimiento( int** map, Pacman pac);
 	int getPosicionActual() { return PosicionActual; }
 	void setPosicionActual(int Valor) { PosicionActual = Valor; }
@@ -24,6 +23,8 @@ public:
 	int getContador() { return contador; }
 	void mAzul(int** map, Pacman pac);
 	void regresarCaja(int** map, Pacman pac);
+	bool fComeP(int** map, Pacman pac);
+	void posInicial(int** map);
 };
 
 #endif // FANTASMA_H
