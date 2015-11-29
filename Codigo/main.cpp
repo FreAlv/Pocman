@@ -89,7 +89,7 @@ void juego(Pacman pacman, Fantasma* F, Tablero tablero, ControlJuego* control) /
 					if (F[i].fComeP(tablero.getMap(), pacman)) //cuando el fantasma come al pacman
 					{
 						tablero.print(control->getPantJuego());	//imprime el mapa
-						control->perder();			
+						control->perder();	
 						for (int j = 0; j < 4; j++)
 						{
 							F[j].posInicial(tablero.getMap());
@@ -99,6 +99,7 @@ void juego(Pacman pacman, Fantasma* F, Tablero tablero, ControlJuego* control) /
 					}
 					tablero.print(control->getPantJuego());
 				}	
+				
 				usleep(599999); //controla la velicidad de los fantasmas
 			}
 		
@@ -108,10 +109,13 @@ void juego(Pacman pacman, Fantasma* F, Tablero tablero, ControlJuego* control) /
 				{
 					for (int i = 0; i < 4; i++)
 					{
-						F[i].regresarCaja(tablero.getMap(), pacman);
 						F[i].mAzul(tablero.getMap(), pacman);
+						for(int k = 0; k < 4; k++)
+							F[k].regresarCaja(tablero.getMap(), pacman);
+						
+						tablero.print(control->getPantJuego());
 					}
-					tablero.print(control->getPantJuego());
+					
 					usleep(659999);
 				}
 				control->setmodoAzul(false);
@@ -140,25 +144,25 @@ int main()
       //0  1  2  3  4  5  6  7  8  9 10         		
 		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, //0
 		1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, //1
-		1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1,
+		1, 2, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 2, 1,
 		1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1,
 		1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-		1, 9, 1, 1, 9, 1, 9, 1, 1, 1, 1, 1, 9, 1, 9, 1, 1, 9, 1, //5
-		1, 9, 9, 9, 9, 1, 9, 9, 9, 1, 9, 9, 9, 1, 9, 9, 9, 9, 1,
-		1, 1, 1, 1, 9, 1, 1, 1, 9, 1, 9, 1, 1, 1, 9, 1, 1, 1, 1,
-		1, 1, 1, 1, 9, 1, 9, 9, 9, 9, 9, 9, 9, 1, 9, 1, 1, 1, 1,
-		1, 1, 1, 1, 9, 1, 9, 1, 1, 1, 1, 1, 9, 1, 9, 1, 1, 1, 1,
-		1, 1, 1, 1, 9, 9, 9, 1, 9, 9, 9, 1, 9, 9, 9, 1, 1, 1, 1, //19
-		1, 1, 1, 1, 9, 1, 9, 1, 1, 1, 1, 1, 9, 1, 9, 1, 1, 1, 1,
-		1, 1, 1, 1, 9, 1, 9, 0, 9, 9, 9, 9, 9, 1, 9, 1, 1, 1, 1,
-		1, 1, 1, 1, 9, 1, 9, 1, 1, 1, 1, 1, 9, 1, 9, 1, 1, 1, 1,
-		1, 9, 9, 9, 9, 9, 9, 9, 9, 1, 9, 9, 9, 9, 9, 9, 9, 9, 1,
-		1, 9, 1, 1, 9, 1, 1, 1, 9, 1, 9, 1, 1, 1, 9, 1, 1, 9, 1,
-		1, 9, 9, 1, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 1, 9, 9, 1,
-		1, 1, 9, 1, 9, 1, 9, 1, 1, 1, 1, 1, 9, 1, 9, 1, 9, 1, 1,
-		1, 9, 9, 9, 9, 1, 9, 9, 9, 1, 9, 9, 9, 1, 9, 9, 9, 9, 1,
-		1, 9, 1, 1, 1, 1, 1, 1, 9, 1, 9, 1, 1, 1, 1, 1, 1, 9, 1,
-		1, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 1,
+		1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, //5
+		1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+		1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1,
+		1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1,
+		1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1,
+		1, 1, 1, 1, 0, 0, 0, 1, 9, 9, 9, 1, 0, 0, 0, 1, 1, 1, 1, //10
+		1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1,
+		1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1,
+		1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1,
+		1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+		1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1,
+		1, 2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 1,
+		1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1,
+		1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+		1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1,
+		1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
 		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
 		// el array del mapa puede ir en un archivo extra,
 		
@@ -179,11 +183,12 @@ int main()
 			fantasmas = new Fantasma[4];
 			*(fantasmas + 0) = Fantasma(8, 9, "=3", tablero.getMap(), 0);
 			*(fantasmas + 1) = Fantasma(10, 8, "=3", tablero.getMap(), 5);
-			*(fantasmas + 2) = Fantasma(10, 9, "=3", tablero.getMap(), 20);
-			*(fantasmas + 3) = Fantasma(10, 10, "=3", tablero.getMap(), 40);
+			*(fantasmas + 2) = Fantasma(10, 9, "=3", tablero.getMap(), 15);
+			*(fantasmas + 3) = Fantasma(10, 10, "=3", tablero.getMap(), 25);
 			wclear(control.getPantMenu());
 			wrefresh(control.getPantMenu());
 			juego(pacman, fantasmas, tablero, &control);
+			control.reiniciar();
 		}
 		if (menu.getOpcion() == 1)
 			mvwprintw(control.getPantMenu(),0,0 , "hola");

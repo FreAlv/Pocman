@@ -23,6 +23,7 @@ public:
 	void perder();
 	void printDatos();
 	int getVidas() { return vidas; }
+	void reiniciar();
 	void aumentarPuntuacion(int p) { puntuacion += p; }
 	
 	void setmodoAzul(bool a) { modoAzul = a;}

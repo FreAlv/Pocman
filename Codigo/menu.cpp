@@ -10,19 +10,21 @@ Menu::Menu(std::vector< const char* > opciones)
 
 void Menu::printOpciones(WINDOW *w)
 {
-	int x, y, i;	
 
-	x = 2;
-	y = 2;
-	for(i = 0; i < numOpciones; ++i)
+
+	
+	int y = 11;
+	
+	mvwprintw(w,9,37, "POCMAN" ); //80-24
+	for(int i = 0; i < numOpciones; ++i)
 	{	
 		if(i == seleccionado) 
 		{	wattron(w,A_REVERSE); //Resalta la opcion
-			mvwprintw(w, y, x, "%s", opciones[i]);
+			mvwprintw(w, y, 36, "%s", opciones[i]);
 			wattroff(w,A_REVERSE);
 		}
 		else
-			mvwprintw(w, y, x, "%s", opciones[i]);
+			mvwprintw(w, y, 36, "%s", opciones[i]);
 		++y;
 	}
 	wrefresh(w);

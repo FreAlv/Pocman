@@ -218,7 +218,8 @@ void Fantasma::regresarCaja(int** map, Pacman pac)
 {
 	if ((x == pac.getX()) and (y == pac.getY()))
 	{			
-		posInicial(map);				
+		posInicial(map);
+		salida = 10;
 	}
 }
 
