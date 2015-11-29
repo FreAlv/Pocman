@@ -8,7 +8,7 @@ class ControlJuego
 	int puntuacion;
 	int vidas;
 	int nivel;
-	int numNiveles;
+	int maxNiveles;
 	
 	int velocidad;
 	bool modoAzul;
@@ -18,13 +18,17 @@ class ControlJuego
 	WINDOW *pantallaDatos;
 	
 public:
-	ControlJuego(int numNiveles);
+	ControlJuego(int maxNiveles);
 	void ganar();
 	void perder();
 	void printDatos();
-	int getVidas() { return vidas; }
+	
 	void reiniciar();
 	void aumentarPuntuacion(int p) { puntuacion += p; }
+	
+	int getVidas() { return vidas; }
+	int getMaxNiveles(){  return maxNiveles; }
+	int getNivel(){ return nivel; }
 	
 	void setmodoAzul(bool a) { modoAzul = a;}
 	bool getmodoAzul() { return modoAzul; }

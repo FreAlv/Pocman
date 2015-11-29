@@ -169,14 +169,15 @@ int main()
 	std::vector<const char*> menuOpciones {"Jugar", "Controles", "Creditos", "Salir"};
 	Menu menu(menuOpciones);
 	
-	ControlJuego control(1); // le mandas como parámetro el número de niveles que quieres
+	ControlJuego control(3); // le mandas como parámetro el número de niveles que quieres
 	
 	while (true)
 	{
 		menu.usarMenu(control.getPantMenu());
 		if (menu.getOpcion() == 0)
 		{
-			
+			while(control.getNivel() <= control.getMaxNiveles() and control.getVidas()>0)
+			{
 			Tablero tablero(mapa);
 			Pacman pacman(16, 9, "0<", tablero.getMap());
 			Fantasma* fantasmas;
@@ -188,6 +189,9 @@ int main()
 			wclear(control.getPantMenu());
 			wrefresh(control.getPantMenu());
 			juego(pacman, fantasmas, tablero, &control);
+			}
+			
+
 			control.reiniciar();
 		}
 		if (menu.getOpcion() == 1)

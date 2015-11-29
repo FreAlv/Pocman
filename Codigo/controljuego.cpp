@@ -2,12 +2,12 @@
 #include <ncurses.h>
 #include <unistd.h>
 
-ControlJuego::ControlJuego(int numNiveles)
+ControlJuego::ControlJuego(int maxNiveles)
 {
 	puntuacion = 0;
 	vidas = 3;
 	nivel = 1;
-	this->numNiveles = numNiveles;
+	this->maxNiveles = maxNiveles;
 	
 	modoAzul = false;
 	
@@ -28,7 +28,7 @@ void ControlJuego::ganar()
 {
 	wclear(pantallaJuego);
 	puntuacion+=1000;
-	if (nivel < numNiveles)
+	if (nivel < maxNiveles)
 	{
 		++nivel;
 		mvwprintw(pantallaJuego,11,15, "NIVEL %i", nivel);
