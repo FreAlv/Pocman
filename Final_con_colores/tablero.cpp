@@ -1,7 +1,7 @@
 #include <ncurses.h>
 #include "tablero.h"
-
-
+#include <stdlib.h>
+#include <time.h>
 
 Tablero::Tablero(int *mapa) 
 {	
@@ -78,6 +78,13 @@ void Tablero::print(ControlJuego control)
 				wattroff(control.getPantJuego(), COLOR_PAIR(3));
 			}
 
+			else if (map[i][j] == 5) //Vidas
+			{
+				wattron(control.getPantJuego(), COLOR_PAIR(6));
+				mvwprintw(control.getPantJuego(),i,2*j, "&&");
+				wattroff(control.getPantJuego(), COLOR_PAIR(6));
+			}
+			
 			else if (map[i][j] == 9) //Espacio en blanco
 			{
 				mvwprintw(control.getPantJuego(),i,2*j , "  "); 
@@ -111,4 +118,12 @@ bool Tablero::ganar()
 		}
 	}
 	return true;
+}
+
+void Tablero::newVida()
+{
+	int num = rand()%40;
+
+	if (num == 10)
+		map[12][9] = 5;
 }

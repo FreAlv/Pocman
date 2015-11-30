@@ -17,7 +17,7 @@ public:
 	int** getMap(){ return map; }
 	bool ganar();
 	void restablecerMapa();
-
+	void newVida();
 };
 
 #endif // TABLERO_H

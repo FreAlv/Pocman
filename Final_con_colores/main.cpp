@@ -91,6 +91,8 @@ void juego(Pacman pacman, Fantasma* F, Tablero tablero, ControlJuego* control) /
 				}
 			}
 
+			tablero.newVida();
+
 			//Movimiento de fantasmas:		
 			if (control->getmodoAzul() == false)
 			{
@@ -111,7 +113,7 @@ void juego(Pacman pacman, Fantasma* F, Tablero tablero, ControlJuego* control) /
 					}
 					tablero.print(*control);
 				}	
-				
+
 				usleep(control->getVelocidad()); //controla la velicidad de los fantasmas
 			}
 		

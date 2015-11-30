@@ -32,6 +32,8 @@ public:
 	void setmodoAzul(bool a) { modoAzul = a;}
 	bool getmodoAzul() { return modoAzul; }
 	int getVelocidad() { return velocidad; }
+
+	void aumentarVida() { vidas++; };
 	
 	WINDOW *getPantJuego() { return pantallaJuego; }
 	WINDOW *getPantMenu() { return pantallaMenu;  }

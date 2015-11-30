@@ -47,6 +47,12 @@ void Pacman::movimiento(int movX, int movY, int** map, ControlJuego *control)
 			control->aumentarPuntuacion(200);
 			control->printDatos();
 		}
+
+		if (map[x][y] == 5) //Come vidas
+		{
+			control->aumentarVida();
+			control->printDatos();
+		}
 		
 		if(y < 0)
 		{
