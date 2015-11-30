@@ -9,12 +9,12 @@ Tablero::Tablero(int *mapa)
 	filas = 22;
 	columnas = 19;
 	
-	copyMap = new int* [22];
-	map = new int* [22];
-	for (int i = 0; i < 22; i++)
+	copyMap = new int* [filas];
+	map = new int* [filas];
+	for (int i = 0; i < filas; i++)
 	{
-		map[i] = new int[19];
-		copyMap[i] = new int[19];
+		map[i] = new int[columnas];
+		copyMap[i] = new int[columnas];
 	}
 	
 	for (int i = 0; i < filas; i++)

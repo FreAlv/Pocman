@@ -15,6 +15,8 @@ public:
 	Menu(std::vector<const char*> opciones);
 	void usarMenu(WINDOW *w);
 	int getOpcion() {return opcion;}
+	void printCreditos(WINDOW *w);
+	void printControles(WINDOW *w);
 };
 
 #endif // MENU_H

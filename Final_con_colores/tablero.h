@@ -18,6 +18,7 @@ public:
 	bool ganar();
 	void restablecerMapa();
 	void newVida();
+	
 };
 
 #endif // TABLERO_H

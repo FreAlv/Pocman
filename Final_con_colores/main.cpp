@@ -12,7 +12,7 @@
 #include "menu.h"
 #include "controljuego.h"
 
-using namespace std;
+
 
 void esperar(int* tecla, Pacman *pacman, Fantasma* F, Tablero *tablero, ControlJuego *control)
 {
@@ -55,7 +55,7 @@ void juego(Pacman pacman, Fantasma* F, Tablero tablero, ControlJuego* control) /
 {	
 	int tecla;
 
-	thread thread1 (esperar, &tecla, &pacman, F, &tablero, control);//esto crea el thread
+	std::thread thread1 (esperar, &tecla, &pacman, F, &tablero, control);//esto crea el thread
 
 	control->printDatos();
 	while(true)
@@ -208,9 +208,6 @@ int main()
 		menu.usarMenu(control.getPantMenu());
 		if (menu.getOpcion() == 0)
 		{
-
-			wclear(control.getPantMenu());
-			wrefresh(control.getPantMenu());
 			juego(pacman, fantasmas, tablero, &control);
 			control.reiniciar();
 			tablero.restablecerMapa();
@@ -220,12 +217,11 @@ int main()
 			
 			wclear(control.getPantJuego());
 			wrefresh(control.getPantJuego());
-			
 		}
 		if (menu.getOpcion() == 1)
-			mvwprintw(control.getPantMenu(),0,0 , "hola");
+			menu.printControles(control.getPantMenu());
 		if (menu.getOpcion() == 2)
-			mvwprintw(control.getPantMenu(),0,0, "chau");
+			menu.printCreditos(control.getPantMenu());
 		if (menu.getOpcion() == 3)
 			break;	
 	}	

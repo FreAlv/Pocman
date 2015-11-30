@@ -52,11 +52,48 @@ void Menu::usarMenu(WINDOW *w)
 		if(tecla == 10)
 		{
 			opcion =seleccionado;
+			wclear(w);
+			wrefresh(w);
 			break;
 		}
 		//? qué tenemos que hacer para que funcione con la funcion juego
 		
 	}
 }
+
+void Menu::printControles(WINDOW *w)
+{
+	
+	mvwprintw(w, 4, 36,"Controles");
+	mvwprintw(w, 7, 24, "Movimiento: Flechas direccionales");
+	mvwprintw(w, 8, 31, "Salir del juego: q");
+	mvwprintw(w, 9, 26, "Seleccionar una opcion: ENTER");
+	
+	mvwprintw(w,18,20, "Presiona una tecla para regresar al menu");
+	
+	wrefresh(w);
+	int esperar = getch();
+		
+	wclear(w);
+}
+
+void Menu::printCreditos(WINDOW *w)
+{
+
+	mvwprintw(w, 7, 36,"Creditos");
+	mvwprintw(w, 9, 31, "Fredy Alvarez Bejar");
+	mvwprintw(w, 10, 30, "Juan Velasquez Malaga");
+	
+	mvwprintw(w,18,20, "Presiona una tecla para regresar al menu");
+	
+	wrefresh(w);
+	int esperar = getch();
+		
+	wclear(w);
+}
+
+
+
+
 
 
