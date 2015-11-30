@@ -7,6 +7,7 @@ ControlJuego::ControlJuego(int maxNiveles)
 	puntuacion = 0;
 	vidas = 3;
 	nivel = 1;
+	velocidad = 599999;
 	this->maxNiveles = maxNiveles;
 	
 	modoAzul = false;
@@ -21,6 +22,7 @@ void ControlJuego::reiniciar()
 	puntuacion = 0;
 	vidas = 3;
 	nivel = 1;
+	velocidad = 599999;
 }
 
 
@@ -28,6 +30,7 @@ void ControlJuego::ganar()
 {
 	wclear(pantallaJuego);
 	puntuacion+=1000;
+	velocidad-= 99999;
 	++nivel;
 	if (nivel <= maxNiveles)
 	{

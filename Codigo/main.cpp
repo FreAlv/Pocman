@@ -112,7 +112,7 @@ void juego(Pacman pacman, Fantasma* F, Tablero tablero, ControlJuego* control) /
 					tablero.print(control->getPantJuego());
 				}	
 				
-				usleep(599999); //controla la velicidad de los fantasmas
+				usleep(control->getVelocidad()); //controla la velicidad de los fantasmas
 			}
 		
 			else
@@ -128,7 +128,7 @@ void juego(Pacman pacman, Fantasma* F, Tablero tablero, ControlJuego* control) /
 						tablero.print(control->getPantJuego());
 					}
 					
-					usleep(659999);
+					usleep(control->getVelocidad() + 109999); // La velocidad de los fantasmas es mas lenta al estar azules
 				}
 				control->setmodoAzul(false);
 			}
