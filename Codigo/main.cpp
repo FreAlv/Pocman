@@ -78,11 +78,11 @@ void juego(Pacman pacman, Fantasma* F, Tablero tablero, ControlJuego* control) /
 				control->ganar();
 				if (control->pasarNivel()) // Para pasar de nivel
 				{
-				tablero.restablecerMapa();
-				for (int i = 0; i < 4; i++)
-					F[i].posInicial(tablero.getMap());
-				pacman.posInicial(tablero.getMap());
-				tablero.print(control->getPantJuego());
+					tablero.restablecerMapa();
+					for (int i = 0; i < 4; i++)
+						F[i].posInicial(tablero.getMap());
+					pacman.posInicial(tablero.getMap());
+					tablero.print(control->getPantJuego());
 				}
 				else
 				{

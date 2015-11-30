@@ -12,7 +12,7 @@ public:
 	Pacman(int x, int y, const char* img, int** map);
 	bool rev_pared(int movX, int movY, int** map);
 	void movimiento(int movX, int movY, int** map, ControlJuego *control );
-	void posInicial(int** map);  //SE PUDE PONER VIRTUAL PURA
+	void posInicial(int** map); 
 };
 
 #endif // PACMAN_H

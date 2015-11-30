@@ -19,8 +19,8 @@ public:
 	void movimiento( int** map, Pacman pac);
 	int getPosicionActual() { return PosicionActual; }
 	void setPosicionActual(int Valor) { PosicionActual = Valor; }
-	int getSalida() { return salida; }
-	int getContador() { return contador; }
+	//int getSalida() { return salida; }
+	//int getContador() { return contador; }
 	void mAzul(int** map, Pacman pac);
 	void regresarCaja(int** map, Pacman pac);
 	bool fComeP(int** map, Pacman pac);

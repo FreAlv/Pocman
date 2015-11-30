@@ -1,8 +1,6 @@
 #include <ncurses.h>
 #include "pacman.h"
 
-
-
 Pacman::Pacman(int x, int y, const char* img, int** map)
 :Personaje(x , y, img)
 {
