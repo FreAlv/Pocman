@@ -17,7 +17,7 @@ using namespace std;
 void esperar(int* tecla, Pacman *pacman, Fantasma* F, Tablero *tablero, ControlJuego *control)
 {
 
-	while(!tablero->ganar())
+	while(control->pasarNivel() and control->getVidas() > 0)
 	{	
 		if (control->getVidas() == 0)
 		{
@@ -55,8 +55,9 @@ void juego(Pacman pacman, Fantasma* F, Tablero tablero, ControlJuego* control) /
 {	
 	int tecla;
 
-	thread thread1 (esperar, &tecla, &pacman, F, &tablero, control);//esto crea la thread
+	thread thread1 (esperar, &tecla, &pacman, F, &tablero, control);//esto crea el thread
 
+	control->printDatos();
 	while(true)
 	{	
 		if (control->getVidas() > 0)
@@ -74,9 +75,20 @@ void juego(Pacman pacman, Fantasma* F, Tablero tablero, ControlJuego* control) /
 
 			if (tablero.ganar())
 			{
-				thread1.detach();//elimina los threads
 				control->ganar();
-				break;
+				if (control->pasarNivel()) // Para pasar de nivel
+				{
+				tablero.restablecerMapa();
+				for (int i = 0; i < 4; i++)
+					F[i].posInicial(tablero.getMap());
+				pacman.posInicial(tablero.getMap());
+				tablero.print(control->getPantJuego());
+				}
+				else
+				{
+					thread1.detach();//elimina los threads
+					break;			
+				}
 			}
 
 			//Movimiento de fantasmas:		
@@ -88,13 +100,13 @@ void juego(Pacman pacman, Fantasma* F, Tablero tablero, ControlJuego* control) /
 
 					if (F[i].fComeP(tablero.getMap(), pacman)) //cuando el fantasma come al pacman
 					{
-						tablero.print(control->getPantJuego());	//imprime el mapa
-						control->perder();	
+						tablero.print(control->getPantJuego());	//para ver que el fantasma come al pacman
 						for (int j = 0; j < 4; j++)
 						{
 							F[j].posInicial(tablero.getMap());
 						}
 						pacman.posInicial(tablero.getMap());
+						control->perder();	
 						break;
 					}
 					tablero.print(control->getPantJuego());
@@ -134,7 +146,6 @@ int main()
 {
 	initscr();// Todo esto es del ncurses, luego irá en una clase propia
 	clear();
-	//start_color(); // colores
 	noecho();						
 	cbreak();
 	keypad(stdscr, TRUE);
@@ -142,19 +153,19 @@ int main()
 
 	int mapa[]={ //22 x 19 //Pacman: 16,09 (x,y)
       //0  1  2  3  4  5  6  7  8  9 10         		
-		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, //0
-		1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, //1
+		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+		1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1,
 		1, 2, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 2, 1,
 		1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1,
 		1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-		1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, //5
+		1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1,
 		1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1,
 		1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1,
-		1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1,
-		1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1,
-		1, 1, 1, 1, 0, 0, 0, 1, 9, 9, 9, 1, 0, 0, 0, 1, 1, 1, 1, //10
-		1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1,
-		1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1,
+		1, 1, 1, 1, 0, 1, 9, 9, 9, 9, 9, 9, 9, 1, 0, 1, 1, 1, 1,
+		1, 1, 1, 1, 0, 1, 9, 1, 1, 1, 1, 1, 9, 1, 0, 1, 1, 1, 1,
+		1, 1, 1, 1, 0, 0, 9, 1, 9, 9, 9, 1, 9, 0, 0, 1, 1, 1, 1,
+		1, 1, 1, 1, 0, 1, 9, 1, 1, 1, 1, 1, 9, 1, 0, 1, 1, 1, 1,
+		1, 1, 1, 1, 0, 1, 9, 9, 9, 9, 9, 9, 9, 1, 0, 1, 1, 1, 1,
 		1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1,
 		1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1,
 		1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1,
@@ -171,28 +182,33 @@ int main()
 	
 	ControlJuego control(3); // le mandas como parámetro el número de niveles que quieres
 	
+	Tablero tablero(mapa);
+	Pacman pacman(16, 9, "0<", tablero.getMap());
+	Fantasma* fantasmas;
+	fantasmas = new Fantasma[4];
+	*(fantasmas + 0) = Fantasma(8, 9, "=3", tablero.getMap(), 0);
+	*(fantasmas + 1) = Fantasma(10, 8, "=3", tablero.getMap(), 5);
+	*(fantasmas + 2) = Fantasma(10, 9, "=3", tablero.getMap(), 10);
+	*(fantasmas + 3) = Fantasma(10, 10, "=3", tablero.getMap(), 15);
+	
 	while (true)
 	{
 		menu.usarMenu(control.getPantMenu());
 		if (menu.getOpcion() == 0)
 		{
-			while(control.getNivel() <= control.getMaxNiveles() and control.getVidas()>0)
-			{
-			Tablero tablero(mapa);
-			Pacman pacman(16, 9, "0<", tablero.getMap());
-			Fantasma* fantasmas;
-			fantasmas = new Fantasma[4];
-			*(fantasmas + 0) = Fantasma(8, 9, "=3", tablero.getMap(), 0);
-			*(fantasmas + 1) = Fantasma(10, 8, "=3", tablero.getMap(), 5);
-			*(fantasmas + 2) = Fantasma(10, 9, "=3", tablero.getMap(), 15);
-			*(fantasmas + 3) = Fantasma(10, 10, "=3", tablero.getMap(), 25);
+
 			wclear(control.getPantMenu());
 			wrefresh(control.getPantMenu());
 			juego(pacman, fantasmas, tablero, &control);
-			}
-			
-
 			control.reiniciar();
+			tablero.restablecerMapa();
+			pacman.posInicial(tablero.getMap());
+			for (int i = 0; i < 4; i++)
+				fantasmas[i].posInicial(tablero.getMap());
+			
+			wclear(control.getPantJuego());
+			wrefresh(control.getPantJuego());
+			
 		}
 		if (menu.getOpcion() == 1)
 			mvwprintw(control.getPantMenu(),0,0 , "hola");

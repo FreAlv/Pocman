@@ -28,17 +28,21 @@ void ControlJuego::ganar()
 {
 	wclear(pantallaJuego);
 	puntuacion+=1000;
-	if (nivel < maxNiveles)
+	++nivel;
+	if (nivel <= maxNiveles)
 	{
-		++nivel;
 		mvwprintw(pantallaJuego,11,15, "NIVEL %i", nivel);
+		mvwprintw(pantallaJuego,14,2, "Presiona una tecla para continuar");
 		wrefresh(pantallaJuego);
 		wrefresh(pantallaDatos);
-		usleep(3000000);
-		//?INICIAR UN NUEVO MAPA,PACMAN Y FANTAMAS
+		int esperar = getch();
+		
+		wclear(pantallaJuego); //Borra contenido de la pantalla juego y datos
+		wrefresh(pantallaJuego);
 	}
 	else
 	{
+		
 		mvwprintw(pantallaJuego,8,15, "GANASTE");
 		mvwprintw(pantallaJuego,12,9, "Presiona una tecla ");
 		mvwprintw(pantallaJuego,13,8, "para regresar al menu");
@@ -61,6 +65,7 @@ void ControlJuego::perder()
 	--vidas;
 	puntuacion-=500;
 	wclear(pantallaJuego);
+	printDatos();
 	mvwprintw(pantallaJuego,10,15, "PERDISTE");
 	mvwprintw(pantallaJuego,11,5, "Te quedan %i vidas", vidas);
 	if (vidas >0)
@@ -71,16 +76,24 @@ void ControlJuego::perder()
 	{
 		mvwprintw(pantallaJuego,12,9, "Presiona una tecla ");
 		mvwprintw(pantallaJuego,13,8, "para regresar al menu");
+		wclear(pantallaDatos); //Borra contenido de la pantalla datos
+		wrefresh(pantallaDatos);
 	}
 	wrefresh(pantallaJuego);
 	wrefresh(pantallaDatos);
 	int esperar = getch();
 	
-	wclear(pantallaJuego); //Borra contenido de la pantalla juego y datos
-	wclear(pantallaDatos);
+	wclear(pantallaJuego); //Borra contenido de la pantalla juego
 	wrefresh(pantallaJuego);
-	wrefresh(pantallaDatos);	
+
 		
+}
+
+bool ControlJuego::pasarNivel()
+{
+	if (nivel <= maxNiveles)
+		return true;
+	return false;
 }
 
 

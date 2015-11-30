@@ -10,11 +10,7 @@ Menu::Menu(std::vector< const char* > opciones)
 
 void Menu::printOpciones(WINDOW *w)
 {
-
-
-	
 	int y = 11;
-	
 	mvwprintw(w,9,37, "POCMAN" ); //80-24
 	for(int i = 0; i < numOpciones; ++i)
 	{	

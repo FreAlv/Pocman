@@ -5,6 +5,7 @@ class Personaje
 {
 protected:
 	int x, y;
+	int copyX, copyY;
 	int identificador;
 	const char* img;
 	

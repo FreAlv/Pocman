@@ -8,11 +8,14 @@ class Tablero
 	int** map;
 	int filas;
 	int columnas;
+	int** copyMap;
+	
 public:
 	Tablero(int *mapa);
 	void print(WINDOW *w);
 	int** getMap(){ return map; }
 	bool ganar();
+	void restablecerMapa();
 
 };
 

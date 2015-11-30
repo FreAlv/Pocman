@@ -27,8 +27,7 @@ public:
 	void aumentarPuntuacion(int p) { puntuacion += p; }
 	
 	int getVidas() { return vidas; }
-	int getMaxNiveles(){  return maxNiveles; }
-	int getNivel(){ return nivel; }
+	bool pasarNivel();
 	
 	void setmodoAzul(bool a) { modoAzul = a;}
 	bool getmodoAzul() { return modoAzul; }

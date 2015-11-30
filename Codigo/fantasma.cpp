@@ -240,28 +240,28 @@ void Fantasma::posInicial(int** map)
 		{
 			x = 10;
 			y = 8;
-			salida = 10;
+			salida = 5;
 		}
 
 		else if (map[10][9] == 9)
 		{
 			x = 10;
 			y = 9;
-			salida = 20;
+			salida = 10;
 		}
 
 		else if (map[10][10] == 9)
 		{
 			x = 10;
 			y = 10;
-			salida = 30;
+			salida = 15;
 		}
 
 		else if (map[8][9] == 9)
 		{
 			x = 8;
 			y = 9;
-			salida = 1;
+			salida = 0;
 		}
 
 		PosicionActual = 9;
