@@ -30,9 +30,16 @@ void Fantasma::dirMovimiento(int movX, int movY, int** map)
 	map[x][y] = PosicionActual;
 	x+=movX;
 	y+=movY;
+	
+	if(y < 0)
+		y=18;
+
+	if(y > 18) 
+		y = 0;
 	PosicionActual = map[x][y];
 	map[x][y] = 3;
 }
+
 
 
 
