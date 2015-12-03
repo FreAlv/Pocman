@@ -14,7 +14,7 @@
 
 
 
-void esperar(int* tecla, Pacman *pacman, Fantasma* F, Tablero *tablero, ControlJuego *control)
+void esperar(int* tecla, Pacman *pacman, std::vector<Fantasma> F, Tablero *tablero, ControlJuego *control)
 {
 
 	while(control->pasarNivel() and control->getVidas() > 0)
@@ -51,12 +51,12 @@ void esperar(int* tecla, Pacman *pacman, Fantasma* F, Tablero *tablero, ControlJ
 	}
 	
 }
-void juego(Pacman pacman, Fantasma* F, Tablero tablero, ControlJuego* control) // La función juego es la función principal
+void juego(Pacman pacman, std::vector<Fantasma> F, Tablero tablero, ControlJuego* control) // La función juego es la función principal
 {	
 	int tecla;
 
 	std::thread thread1 (esperar, &tecla, &pacman, F, &tablero, control);//esto crea el thread
-
+	
 	control->printDatos();
 	while(true)
 	{	
@@ -196,13 +196,15 @@ int main()
 	
 	Tablero tablero(mapa);
 	Pacman pacman(16, 9, "0<", tablero.getMap());
-	Fantasma* fantasmas;
-	fantasmas = new Fantasma[4];
-	*(fantasmas + 0) = Fantasma(8, 9, "=3", tablero.getMap(), 0);
-	*(fantasmas + 1) = Fantasma(10, 8, "=3", tablero.getMap(), 5);
-	*(fantasmas + 2) = Fantasma(10, 9, "=3", tablero.getMap(), 10);
-	*(fantasmas + 3) = Fantasma(10, 10, "=3", tablero.getMap(), 15);
+	//Fantasma* fantasmas;
+	//fantasmas = new Fantasma[4];
+	std::vector<Fantasma> fantasmas;
+	fantasmas.push_back(Fantasma(8, 9, "=3", tablero.getMap(), 0));
+	fantasmas.push_back(Fantasma(10, 8, "=3", tablero.getMap(), 5));
+	fantasmas.push_back(Fantasma(10, 9, "=3", tablero.getMap(), 10));
+	fantasmas.push_back(Fantasma(10, 10, "=3", tablero.getMap(), 15));
 	
+
 	while (true)
 	{
 		menu.usarMenu(control.getPantMenu());
